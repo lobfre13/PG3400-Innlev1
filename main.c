@@ -1,15 +1,24 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <getopt.h>
+#include "number.h"
+#include "sortAlgorithms/sorts.h"
 
-int file[200000];
+
+int arraySize = 100;
+Number *numbers;
+int elements = 0;
 void readFile(char filename[]);
 void parseArgs(int argc, char *argv[]);
+void resizeArray();
 
 int main(int argc, char *argv[]){
+	numbers = malloc(arraySize * sizeof(Number));
 	char *filename = argv[1];
-	readFile(filename);
 	parseArgs(argc, argv);
+	readFile(filename);
+	
   	
   	return 0;
 }
@@ -20,7 +29,7 @@ void parseArgs(int argc, char *argv[]){
 
 		switch(c){
         	case 'm':
-        		printf("Merge Sort\n");
+        		mergesort(elements, numbers);
 				break;
 			case 'b':
 				printf("Bubble Sort\n");
@@ -38,17 +47,25 @@ void parseArgs(int argc, char *argv[]){
   	}
 }
 
-void readFile(char filename[]){
+void readFile(char *filename){
 	FILE* f = fopen (filename, "r");
 	int i = 0;
-	int cursor = 0;
 	do{
 		fscanf (f, "%d", &i);
-		file[cursor] = i;
-		cursor++;
+		if(elements >= arraySize) resizeArray(numbers);
+		numbers[elements].value = i;
+		numbers[elements].originalIndex = elements;
+		elements++;
 	}while (!feof (f));
 
-	printf("Antall: %d\n", cursor);
-	printf("siste: %d\n", file[cursor-1]);
+	printf("Antall: %d\n", elements);
+	printf("siste: %d\n", numbers[elements-1].value);
+	printf("Index: %d\n", numbers[elements-1].originalIndex);
+	printf("ArrayStørrelse: %d\n", arraySize);
 	fclose(f);
+}
+
+void resizeArray(){
+	arraySize *= 2;
+	numbers = realloc(numbers, arraySize * sizeof(Number));
 }
