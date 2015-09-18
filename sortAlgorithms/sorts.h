@@ -1,11 +1,4 @@
-#include "bubblesort.h"
-#include "insertionsort.h"
-#include "mergesort.h"
-#include "quicksort.h"
-#include "selectionsort.h"
-
-typedef enum {MERGESORT, QUICKSORT, SELECTIONSORT, BUBBLESORT, INSERTIONSORT} Sorts;
-Sorts sort;
+typedef enum {MERGESORT, QUICKSORT, SELECTIONSORT, BUBBLESORT, INSERTIONSORT} SortType;
 
 void selectionsort(int count, Number *array);
 void bubblesort(int count, Number *array);
