@@ -3,7 +3,7 @@
 
 void bubblesort(int count, Number *array) {
 	int swap = 1;
-	for (int i = 0; i < count - 1; i++) {
+	for (;;) {
 		if (swap == 1) {
 			swap = 0;
 			for (int j = 0; j < count - 1; j++) {
@@ -15,7 +15,7 @@ void bubblesort(int count, Number *array) {
 				} 
 			}
 		} else {
-			return;
+			break;
 		}
 	}
 }

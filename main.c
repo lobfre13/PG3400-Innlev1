@@ -17,7 +17,7 @@ int main(int argc, char *argv[]){
 	sort(getopt(argc, argv, "mbisq"));
 
 	for(int i = 0; i < 10; i++){
-		printf("%d\n", numbers[i].value);
+		printf("Value: %d\torig: %d\n", numbers[i].value, numbers[i].originalIndex);
 	}
   	
   	return 0;
