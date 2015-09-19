@@ -1,62 +1,51 @@
 //http://geeksquiz.com/merge-sort/
-#include <stdio.h>
 #include <stdlib.h>
 #include "../number.h"
 void split(int start, int end, Number *array);
-void merge(int start, int end, int mid, Number *array);
+void merge(int start, int mid, int end, Number *array);
+void copyToTmp(int start, int end, Number *array);
+Number *tmpArr;
 
 void mergesort(int count, Number *array){
-	printf("Count: %d\n", count);
+	tmpArr = malloc(count * sizeof(Number));
 	split(0, count-1, array);
-	
+	free(tmpArr);
 }
 
 void split(int start, int end, Number *array){
-	int size = (end - start) + 1;
-	if(size <= 1) return; 
+	if(end - start < 1) return; 
 	
-	int mid = start+(end-start)/2;
+	int mid = (end - start) / 2 + start;
 	split(start, mid, array);
 	split(mid+1, end, array);
-	merge(start, end, mid, array);
+
+	copyToTmp(start, end, array);
+	merge(start, mid, end, array);
 }
 
-void merge(int start, int end, int mid, Number *array){
-	
-	int leftSize = mid - start + 1;
-	int rightSize = end - mid;
-	Number *leftArr = malloc(leftSize * sizeof(Number));
-	Number *rightArr = malloc(rightSize * sizeof(Number));
+void merge(int start, int mid, int end, Number *array){
+	int leftCursor = start, rightCursor = mid+1, destCursor = start;
 
-	for(int i = 0; i < leftSize; i++){
-		leftArr[i] = array[start+i]; 
-	}
-	for(int i = 0; i < rightSize; i++){
-		rightArr[i] = array[mid+1+i];
-	}
-
-	int leftCount = 0, rightCount = 0, orgCount = start;
-	while(leftCount < leftSize && rightCount < rightSize){
-		if(leftArr[leftCount].value <= rightArr[rightCount].value){
-			array[orgCount] = leftArr[leftCount];
-			leftCount++;
+	while(leftCursor <= mid && rightCursor <= end){
+		if(tmpArr[leftCursor].value <= tmpArr[rightCursor].value){
+			array[destCursor++] = tmpArr[leftCursor++];
 		}
 		else{
-			array[orgCount] = rightArr[rightCount];
-			rightCount++;
+			array[destCursor++] = tmpArr[rightCursor++];
 		}
-		orgCount++;
 	}
 
-	while(leftCount < leftSize){
-		array[orgCount] = leftArr[leftCount];
-		leftCount++;
-		orgCount++;
+	while(leftCursor <= mid){
+		array[destCursor++] = tmpArr[leftCursor++];
 	}
-	while(rightCount < rightSize){
-		array[orgCount] = rightArr[rightCount];
-		rightCount++;
-		orgCount++;
+	while(rightCursor <= end){
+		array[destCursor++] = tmpArr[rightCursor++];
 	}
 
+}
+
+void copyToTmp(int start, int end, Number *array){
+	for(int i = start; i <= end; i++){
+		tmpArr[i] = array[i]; 
+	}
 }
