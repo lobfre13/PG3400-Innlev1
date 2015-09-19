@@ -7,10 +7,10 @@ void bubblesort(int count, Number *array) {
 		if (swap == 1) {
 			swap = 0;
 			for (int j = 0; j < count - 1; j++) {
-				if (array[j] < array[j+1]) {
-					Number tmp = array[j];
-					array[j] = array[j+1];
-					array[j+1] = tmp;
+				if (array[j].value < array[j+1].value) {
+					int tmp = array[j].value;
+					array[j].value = array[j+1].value;
+					array[j+1].value = tmp;
 					swap = 1;
 				} 
 			}
