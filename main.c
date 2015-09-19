@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <getopt.h>
 #include "numberArray.h"
@@ -16,10 +17,10 @@ int main(int argc, char *argv[]){
 	readFile(argv[1]);
 	sort(getopt(argc, argv, "mbisq"));
 
-	for(int i = 0; i < 10; i++){
+	for(int i = 0; i < elementCount; i++){ 
 		printf("Value: %d\torig: %d\n", numbers[i].value, numbers[i].originalIndex);
 	}
-  	
+  	free(numbers);
   	return 0;
 }
 

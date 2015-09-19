@@ -7,20 +7,18 @@ void merge(int start, int end, int mid, Number *array);
 
 void mergesort(int count, Number *array){
 	printf("Count: %d\n", count);
-	split(0, count, array);
+	split(0, count-1, array);
 	
 }
 
 void split(int start, int end, Number *array){
-	int size = end - start;
-	if(size <= 1) return;
-
-	int mid = ((end - start)/2)+start;
+	int size = (end - start) + 1;
+	if(size <= 1) return; 
+	
+	int mid = start+(end-start)/2;
 	split(start, mid, array);
 	split(mid+1, end, array);
 	merge(start, end, mid, array);
-
-
 }
 
 void merge(int start, int end, int mid, Number *array){
