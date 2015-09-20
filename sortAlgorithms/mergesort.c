@@ -24,7 +24,9 @@ void split(int start, int end, Number *array){
 }
 
 void merge(int start, int mid, int end, Number *array){
-	int leftCursor = start, rightCursor = mid+1, destCursor = start;
+	int leftCursor = start;
+	int rightCursor = mid+1; 
+	int destCursor = start;
 
 	while(leftCursor <= mid && rightCursor <= end){
 		if(tmpArr[leftCursor].value <= tmpArr[rightCursor].value){

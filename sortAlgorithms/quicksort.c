@@ -1,28 +1,27 @@
-//https://www.youtube.com/watch?v=y_G9BkAm6B8
+// https://www.youtube.com/watch?v=aQiWF4E8flQ
 #include <stdio.h>
 #include <stdlib.h>
 #include "../number.h"
+void swap(Number *a, Number *b);
 
 void quicksort(int count, Number *array){
 	if(count < 2) return;
-	Number pivot = array[rand() % count];
-	int l = 0, u = count -1;
-	while (l < u){
-		while(array[l].value < pivot.value){
-			l++;
-		}
-		while(array[u].value > pivot.value){
-			u--;
-		}
-		if (array[l].value == array[u].value)
-    		++l;
-    	else{
-    		Number tmp = array[l];
-			array[l] = array[u];
-			array[u] = tmp; 
-    	}
-		
+
+	Number pivot = array[count-1];
+	int wall = -1;
+	for(int i = 0; i < count-1; i++){
+		if(array[i].value <= pivot.value){
+			swap(&array[++wall], &array[i]);
+		} 
 	}
-	quicksort(l, array);
-	quicksort(count - l - 1, &array[l + 1]);
+	swap(&array[++wall], &array[count-1]);
+	
+	quicksort(count-(count - wall), array);
+	quicksort(count-wall, &array[count-(count - wall)]);
 }
+
+void swap(Number *a, Number *b){
+   Number tmp = *a;
+   *a = *b;
+   *b = tmp;
+}    
