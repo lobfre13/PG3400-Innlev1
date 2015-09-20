@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../number.h"
-void swap(Number *a, Number *b);
+void swap(Number *one, Number *two);
 
 void quicksort(int count, Number *array){
 	if(count < 2) return;
@@ -14,14 +14,14 @@ void quicksort(int count, Number *array){
 			swap(&array[++wall], &array[i]);
 		} 
 	}
-	swap(&array[++wall], &array[count-1]);
-	
-	quicksort(count-(count - wall), array);
-	quicksort(count-wall, &array[count-(count - wall)]);
+	swap(&array[++wall], &array[count-1]); //Place pivot in final place
+
+	quicksort(count-(count - wall), array); //Sort left side of pivot
+	quicksort(count-wall, &array[count-(count - wall)]); //Sort right side of pivot
 }
 
-void swap(Number *a, Number *b){
-   Number tmp = *a;
-   *a = *b;
-   *b = tmp;
+void swap(Number *one, Number *two){
+   Number tmp = *one;
+   *one = *two;
+   *two = tmp;
 }    
