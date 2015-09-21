@@ -20,6 +20,7 @@ int main(int argc, char *argv[]){
 	for(int i = 0; i < elementCount; i++){ 
 		printf("Value: %d\torig: %d\n", numbers[i].value, numbers[i].originalIndex);
 	}
+	//printf("Fant lol: %d\n", binarySearch(elementCount, numbers, 8949));
   	free(numbers);
   	return 0;
 }
