@@ -16,6 +16,8 @@ void quicksort(int count, Number *array){
 	}
 	swap(&array[++wall], &array[count-1]); //Place pivot in final place
 
-	quicksort(count-(count - wall), array); //Sort left side of pivot
-	quicksort(count-wall, &array[count-(count - wall)]); //Sort right side of pivot
+	int rightCount = count - wall;
+	int leftCount = count - rightCount;
+	quicksort(leftCount, array); //Sort left side of pivot
+	quicksort(rightCount, &array[leftCount]); //Sort right side of pivot
 } 
