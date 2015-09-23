@@ -6,6 +6,7 @@ void mergesort(NumberList *numbers);
 void quicksort(NumberList *numbers);
 int binarySearch(NumberList *numbers, int target);
 typedef enum {
+	UNDEFINED = -1,
 	MERGESORT = 'm',
 	BUBBLESORT = 'b',
 	INSERTIONSORT = 'i',

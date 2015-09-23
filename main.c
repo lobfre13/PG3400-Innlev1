@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <getopt.h>
+
 #include "numberList.h"
 #include "sortAlgorithms/sorts.h"
+#include "argumentHandler.h"
 
 void readFile(char filename[]);
 void sort();
@@ -12,15 +13,12 @@ NumberList numbers;
 int main(int argc, char *argv[]){
 	initArray(&numbers, 100);
 	readFile(argv[1]);
-	int l[(int)*argv[2]];
-	l[0] = 0;
-	printf("%d\n", l[0]);
-	Sort option = getopt(argc, argv, "mbisq");
+	
+	Sort option = getSortOption(argc, argv);
 	sort(option);
-	for(int i = 0; i < numbers.count; i++){ 
-		printf("Value: %d\torig: %d\n", numbers.array[i].value, numbers.array[i].originalIndex);
-	}
-	//printf("Fant lol: %d\n", binarySearch(elementCount, numbers, 8949));
+	//for(int i = 0; i < numbers.count; i++){ 
+	//	printf("Value: %d\torig: %d\n", numbers.array[i].value, numbers.array[i].originalIndex);
+	//}
   	free(numbers.array); 
   	return 0;
 }
