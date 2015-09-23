@@ -6,9 +6,9 @@ void merge(int start, int mid, int end, Number *array);
 void copyToTmp(int start, int end, Number *array);
 Number *tmpArr;
 
-void mergesort(int count, Number *array){
-	tmpArr = malloc(count * sizeof(Number));
-	split(0, count-1, array);
+void mergesort(NumberList *numbers){
+	tmpArr = malloc((*numbers).count * sizeof(Number));
+	split(0, (*numbers).count-1, (*numbers).array);
 	free(tmpArr);
 }
 

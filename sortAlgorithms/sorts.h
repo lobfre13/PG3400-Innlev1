@@ -1,6 +1,14 @@
-void selectionsort(int count, Number *array);
-void bubblesort(int count, Number *array);
-void insertionsort(int count, Number *array);
-void mergesort(int count, Number *array);
-void quicksort(int count, Number *array);
-int binarySearch(int count, Number *array, int target);
+
+void selectionsort(NumberList *numbers);
+void bubblesort(NumberList *numbers);
+void insertionsort(NumberList *numbers);
+void mergesort(NumberList *numbers);
+void quicksort(NumberList *numbers);
+int binarySearch(NumberList *numbers, int target);
+typedef enum {
+	MERGESORT = 'm',
+	BUBBLESORT = 'b',
+	INSERTIONSORT = 'i',
+	QUICKSORT = 'q',
+	SELECTIONSORT = '1'
+}Sort;

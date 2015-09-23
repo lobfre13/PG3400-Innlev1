@@ -3,21 +3,26 @@
 #include <stdlib.h>
 #include "../number.h"
 #include "sortUtilities.h"
+void q_sort(int count, Number *numbers);
 
-void quicksort(int count, Number *array){
+void quicksort(NumberList *numbers){
+	q_sort((*numbers).count, (*numbers).array);
+}
+
+void q_sort(int count, Number *numbers){
 	if(count < 2) return;
 
-	Number pivot = array[count-1];
+	Number pivot = numbers[count-1];
 	int wall = -1;
 	for(int i = 0; i < count-1; i++){
-		if(array[i].value <= pivot.value){
-			swap(&array[++wall], &array[i]);
+		if(numbers[i].value <= pivot.value){
+			swap(&numbers[++wall], &numbers[i]);
 		} 
 	}
-	swap(&array[++wall], &array[count-1]); //Place pivot in final place
+	swap(&numbers[++wall], &numbers[count-1]); //Place pivot in final place
 
 	int rightCount = count - wall;
 	int leftCount = count - rightCount;
-	quicksort(leftCount, array); //Sort left side of pivot
-	quicksort(rightCount, &array[leftCount]); //Sort right side of pivot
+	q_sort(leftCount, numbers); //Sort left side of pivot
+	q_sort(rightCount, &numbers[leftCount]); //Sort right side of pivot
 } 

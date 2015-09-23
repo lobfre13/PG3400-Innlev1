@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "../number.h"
 
-void mergesort2(int count, Number *array){
+void mergesort2(NumberList *numbers){
 
 }
 
