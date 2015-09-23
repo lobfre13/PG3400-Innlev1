@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "../number.h"
 
+<<<<<<< HEAD
 void selectionsort(int count, Number *array){
 	for (int i = 0; i < count; i++) {
 		Number smallestIndex = array[i];
@@ -13,4 +14,8 @@ void selectionsort(int count, Number *array){
 		array[i] = smallestIndex;
 		
 	}
+=======
+void selectionsort(NumberList *numbers){
+	printf("selection\n");
+>>>>>>> 34e9697e1c3e3736d5efd87e025247387424fb8b
 }

@@ -1,21 +1,17 @@
 #include <stdio.h>
 #include "../number.h"
+#include "sortUtilities.h"
 
-void bubblesort(int count, Number *array) {
-	int swap = 1;
-	for (;;) {
-		if (swap == 1) {
-			swap = 0;
-			for (int j = 0; j < count - 1; j++) {
-				if (array[j].value > array[j+1].value) {
-					int tmp = array[j].value;
-					array[j].value = array[j+1].value;
-					array[j+1].value = tmp;
-					swap = 1;
-				} 
+void bubblesort(NumberList *numbers) {
+	Number *array = (*numbers).array;
+	bool swapped;
+	do{
+		swapped = false;
+		for (int j = 0; j < (*numbers).count-1; j++) {
+			if(less(array[j+1], array[j])){
+				swap(&array[j], &array[j+1]);
+				swapped = true;
 			}
-		} else {
-			break;
 		}
-	}
+	}while(swapped);
 }

@@ -2,26 +2,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../number.h"
-void swap(Number *one, Number *two);
+#include "sortUtilities.h"
+void q_sort(int count, Number *numbers);
 
-void quicksort(int count, Number *array){
-	if(count < 2) return;
-
-	Number pivot = array[count-1];
-	int wall = -1;
-	for(int i = 0; i < count-1; i++){
-		if(array[i].value <= pivot.value){
-			swap(&array[++wall], &array[i]);
-		} 
-	}
-	swap(&array[++wall], &array[count-1]); //Place pivot in final place
-
-	quicksort(count-(count - wall), array); //Sort left side of pivot
-	quicksort(count-wall, &array[count-(count - wall)]); //Sort right side of pivot
+void quicksort(NumberList *numbers){
+	q_sort((*numbers).count, (*numbers).array);
 }
 
-void swap(Number *one, Number *two){
-   Number tmp = *one;
-   *one = *two;
-   *two = tmp;
-}    
+void q_sort(int count, Number *numbers){
+	if(count < 2) return;
+
+	Number pivot = numbers[count-1];
+	int wall = -1;
+	for(int i = 0; i < count-1; i++){
+		if(numbers[i].value <= pivot.value){
+			swap(&numbers[++wall], &numbers[i]);
+		} 
+	}
+	swap(&numbers[++wall], &numbers[count-1]); //Place pivot in final place
+
+	int rightCount = count - wall;
+	int leftCount = count - rightCount;
+	q_sort(leftCount, numbers); //Sort left side of pivot
+	q_sort(rightCount, &numbers[leftCount]); //Sort right side of pivot
+} 
