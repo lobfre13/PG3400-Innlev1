@@ -12,6 +12,9 @@ NumberList numbers;
 int main(int argc, char *argv[]){
 	initArray(&numbers, 100);
 	readFile(argv[1]);
+	int l[(int)*argv[2]];
+	l[0] = 0;
+	printf("%d\n", l[0]);
 	Sort option = getopt(argc, argv, "mbisq");
 	sort(option);
 	for(int i = 0; i < numbers.count; i++){ 

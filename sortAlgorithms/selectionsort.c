@@ -1,21 +1,16 @@
 #include <stdio.h>
 #include "../number.h"
+#include "sortUtilities.h"
 
-<<<<<<< HEAD
-void selectionsort(int count, Number *array){
-	for (int i = 0; i < count; i++) {
-		Number smallestIndex = array[i];
-		for (int j = i; j < count; j++) {
-			if (array[j].value < smallestIndex.value) {
-				smallestIndex = array[j];
+void selectionsort(NumberList *numbers){
+	for (int i = 0; i < (*numbers).count-1; i++) {
+		int smallestIndex = i;
+		for (int j = i+1; j < (*numbers).count; j++) {
+			if(less((*numbers).array[j], (*numbers).array[i])){
+				smallestIndex = j;
 			} 
 		}
-		Number tmp = array[i];
-		array[i] = smallestIndex;
-		
+		if(i != smallestIndex)
+			swap(&(*numbers).array[i], &(*numbers).array[smallestIndex]);
 	}
-=======
-void selectionsort(NumberList *numbers){
-	printf("selection\n");
->>>>>>> 34e9697e1c3e3736d5efd87e025247387424fb8b
 }

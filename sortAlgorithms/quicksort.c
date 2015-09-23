@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "../number.h"
 #include "sortUtilities.h"
+
 void q_sort(int count, Number *numbers);
 
 void quicksort(NumberList *numbers){
