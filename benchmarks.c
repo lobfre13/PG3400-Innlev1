@@ -18,7 +18,6 @@ void benchmark (int times) {
 	getAverage(times, INSERTIONSORT, "Insertionsort");
 	getAverage(times, SELECTIONSORT, "Selectionsort");
 	getAverage(times, BUBBLESORT, "Bubblesort");
-	
 }
 
 /*http://users.pja.edu.pl/~jms/qnx/help/watcom/clibref/qnx/clock_gettime.html*/
@@ -40,7 +39,7 @@ double getAverage (int times, Sort sortAlgorythm, char *algorithmName) {
 	}
 	updateProgress(times, times, algorithmName);
 	timeEllapsed = timeEllapsed / (double)times;
-	printf("\033[F\033[43C %.2f ms\n", timeEllapsed);
+	printf("\033[F\033[43C %.5f ms\n", timeEllapsed);
 	return timeEllapsed;
 }
 
@@ -63,11 +62,11 @@ void updateProgress(int i, int total, char *algorithmName){
 
 /*http://stackoverflow.com/questions/3756323/getting-the-current-time-in-milliseconds*/
 double getCurrentTimeInMS () {
-    return  ((float)clock() / 1000000.0F ) * 1000;
+    return  ((double)clock() / CLOCKS_PER_SEC ) * 1000;
 }
 
 void fillListRandom(NumberList *numbers, int count){
 	for(int i = 0; i < count; i++){
-		addNumber(numbers, rand()*1000000);
+		addNumber(numbers, rand());
 	}
 }
