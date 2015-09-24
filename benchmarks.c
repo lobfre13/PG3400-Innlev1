@@ -3,54 +3,71 @@
 #include "numberList.h"
 #include "sortAlgorithms/sorts.h"
 #include <time.h>
+#include "colors.h"
 
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_BLUE    "\x1b[34m"
-#define ANSI_COLOR_MAGENTA "\x1b[35m"
-#define ANSI_COLOR_CYAN    "\x1b[36m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
-
-void readFile(char filename[], NumberList* numbers);
-double getAverage(int times, Sort sortAlgorythm);
+double getAverage(int times, Sort sortAlgorythm, char *algorithmName);
 double getCurrentTimeInMS ();
 void sort();
+void fillListRandom(NumberList *numbers, int count);
+void printProgress(int i, int total, char *algorithmName);
+void updateProgress(int i, int total, char *algorithmName);
 
 void benchmark (int times) {
-	printf("%s%f\n%s%f\n%s%f\n%s%f\n%s%f\n", "Merge sort: " , getAverage(times, MERGESORT),
-		"Insertion sort: " , getAverage(times, INSERTIONSORT) ,
-		"Selection sort: " , getAverage(times, SELECTIONSORT) ,
-		"Bubble sort: " , getAverage(times, BUBBLESORT) ,
-		"Quicksort: " , getAverage(times, QUICKSORT)
-		);
+	getAverage(times, QUICKSORT, "Quicksort");
+	getAverage(times, MERGESORT, "Mergesort");
+	getAverage(times, INSERTIONSORT, "Insertionsort");
+	getAverage(times, SELECTIONSORT, "Selectionsort");
+	getAverage(times, BUBBLESORT, "Bubblesort");
+	
 }
 
 /*http://users.pja.edu.pl/~jms/qnx/help/watcom/clibref/qnx/clock_gettime.html*/
-double getAverage (int times, Sort sortAlgorythm) {
-	
-	fprintf(stderr, ANSI_COLOR_CYAN"%c: %%[", sortAlgorythm);
-	double timeEllapsed = 0.0, start = 0.0, stop = 0.0;
+double getAverage (int times, Sort sortAlgorythm, char *algorithmName) {
+	printProgress(0, times, algorithmName);
+	double timeEllapsed = 0.0, startTime;
 	for (int i = 0; i < times; i++) {
       	NumberList numbers;
     	initArray(&numbers, 100);
-		readFile("resources/1.txt", &numbers);
+    	fillListRandom(&numbers, 1000);
 
-    	start = getCurrentTimeInMS();
+    	startTime = getCurrentTimeInMS();
 
     	sort(sortAlgorythm, &numbers);
-      	stop = getCurrentTimeInMS();
 		
-		timeEllapsed += (stop - start);
+		timeEllapsed += getCurrentTimeInMS() - startTime;
+		if(i % (times/100) == 0) updateProgress(i, times, algorithmName);
 		free(numbers.array); 
-		if(i % (times/20) == 0)
-			fprintf(stderr, "#");
 	}
-	fprintf(stderr, "]\n");
-	return timeEllapsed / (double)times;
+	updateProgress(times, times, algorithmName);
+	timeEllapsed = timeEllapsed / (double)times;
+	printf("\033[F\033[43C %.2f ms\n", timeEllapsed);
+	return timeEllapsed;
+}
+
+void printProgress(int i, int total, char *algorithmName){
+	int percent = i/(double)total*100;
+	printf("%s:\t%3d%%[", algorithmName, percent);
+	for(int i = 0; i < percent/5; i++){
+		printf("#");
+	}
+	for(int i = 0; i < 20-(percent/5); i++){
+		printf(" ");
+	}
+	printf("]\n");
+}
+
+void updateProgress(int i, int total, char *algorithmName){
+	printf("\033[F\033[J");
+	printProgress(i, total, algorithmName);
 }
 
 /*http://stackoverflow.com/questions/3756323/getting-the-current-time-in-milliseconds*/
 double getCurrentTimeInMS () {
     return  ((float)clock() / 1000000.0F ) * 1000;
+}
+
+void fillListRandom(NumberList *numbers, int count){
+	for(int i = 0; i < count; i++){
+		addNumber(numbers, rand()*1000000);
+	}
 }

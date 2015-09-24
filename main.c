@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "numberList.h"
 #include "sortAlgorithms/sorts.h"
 #include "argumentHandler.h"
@@ -21,7 +20,7 @@ int main(int argc, char *argv[]){
 	//	printf("Value: %d\torig: %d\n", numbers.array[i].value, numbers.array[i].originalIndex);
 	//}
   	free(numbers.array); 
-  	benchmark(100);
+  	benchmark(1000);
   	return 0;
 }
 
