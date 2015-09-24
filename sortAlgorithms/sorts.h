@@ -11,5 +11,5 @@ typedef enum {
 	BUBBLESORT = 'b',
 	INSERTIONSORT = 'i',
 	QUICKSORT = 'q',
-	SELECTIONSORT = '1'
+	SELECTIONSORT = 's'
 }Sort;

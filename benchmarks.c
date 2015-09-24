@@ -1,11 +1,8 @@
-#define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdlib.h>
 #include "numberList.h"
 #include "sortAlgorithms/sorts.h"
-#include <inttypes.h>
 #include <math.h>
-#include <stdio.h>
 #include <time.h>
 
 void readFile(char filename[], NumberList* numbers);
@@ -24,26 +21,27 @@ void benchmark (int times) {
 
 /*http://users.pja.edu.pl/~jms/qnx/help/watcom/clibref/qnx/clock_gettime.html*/
 double getAverage (int times, Sort sortAlgorythm) {
-	unsigned long timeEllapsed = 0, start = 0, stop = 0;
+	double timeEllapsed = 0.0, start = 0.0, stop = 0.0;
 	for (int i = 0; i < times; i++) {
-      NumberList numbers;
+      	NumberList numbers;
     	initArray(&numbers, 100);
-		  readFile("resources/3.txt", &numbers);
+		readFile("resources/1.txt", &numbers);
 
     	start = getCurrentTimeInMS();
 
     	sort(sortAlgorythm, &numbers);
-      stop = getCurrentTimeInMS();
+      	stop = getCurrentTimeInMS();
 		
-		  timeEllapsed += stop - start;
-		  free(numbers.array); 
+		timeEllapsed += (stop - start);
+		free(numbers.array); 
+		printf("%c: %d%%\n\n\n\n\n\n", sortAlgorythm, (int)(((double)i/times)*100.0));
 	}
-	return timeEllapsed / (unsigned long)times;
+	return timeEllapsed / (double)times;
 }
 
 /*http://stackoverflow.com/questions/3756323/getting-the-current-time-in-milliseconds*/
 double getCurrentTimeInMS () {
     struct timespec spec;
-    clock_gettime(CLOCK_MONOTONIC, &spec);
-    return spec.tv_nsec / 1000000L/* / 1.0e6*/; // Convert nanoseconds to milliseconds
+    clock_gettime(CLOCK_REALTIME, &spec);
+    return  round(spec.tv_nsec / 1.0e6);/* / 1.0e6*/; // Convert nanoseconds to milliseconds
 }
