@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
 	//	printf("Value: %d\torig: %d\n", numbers.array[i].value, numbers.array[i].originalIndex);
 	//}
   	free(numbers.array); 
-  	benchmark(1000);
+  	benchmark(100);
   	return 0;
 }
 
