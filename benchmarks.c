@@ -1,44 +1,49 @@
-#define BILLION 1E9;
+#define _POSIX_C_SOURCE 200809L
+#include <stdio.h>
+#include <stdlib.h>
+#include "numberList.h"
+#include "sortAlgorithms/sorts.h"
+#include <inttypes.h>
+#include <math.h>
+#include <stdio.h>
+#include <time.h>
 
-void benchmark (int times, char sortAlgorythm) {
-	print("Result:\n" +
-		"Merge sort: " + getAverage(times, 'm') + "\n" +
-		"Insertion sort: " + getAverage(times, 'i') + "\n" +
-		"Selection sort: " + getAverage(times, 's') + "\n" +
-		"Bubble sort: " + getAverage(times, 'b') + "\n" + 
-		"Quicksort: " + getAverage(times, 'q') + "q"
+void readFile(char filename[], NumberList* numbers);
+double getAverage(int times, Sort sortAlgorythm);
+double getCurrentTimeInMS ();
+void sort();
+
+void benchmark (int times) {
+	printf("%s%f\n%s%f\n%s%f\n%s%f\n%s%f\n", "Merge sort: " , getAverage(times, MERGESORT),
+		"Insertion sort: " , getAverage(times, INSERTIONSORT) ,
+		"Selection sort: " , getAverage(times, SELECTIONSORT) ,
+		"Bubble sort: " , getAverage(times, BUBBLESORT) ,
+		"Quicksort: " , getAverage(times, QUICKSORT)
 		);
 }
 
 /*http://users.pja.edu.pl/~jms/qnx/help/watcom/clibref/qnx/clock_gettime.html*/
-double getAverage (int times, char sortAlgorythm) {
-	double timeEllapsed = 0.0;
+double getAverage (int times, Sort sortAlgorythm) {
+	unsigned long timeEllapsed = 0, start = 0, stop = 0;
 	for (int i = 0; i < times; i++) {
-		struct timespec start, stop;
-    	double accum;
-
+      NumberList numbers;
     	initArray(&numbers, 100);
-		readFile("resources/2.txt");
+		  readFile("resources/3.txt", &numbers);
 
-    	if( clock_gettime( CLOCK_REALTIME, &start) == -1 ) {
-      	perror( "clock gettime" );
-      	exit( EXIT_FAILURE );
-    	}
+    	start = getCurrentTimeInMS();
 
-    	sort(sortAlgorythm);
-
-    	if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) {
-      		perror( "clock gettime" );
-      		exit( EXIT_FAILURE );
-    	}
-
-    	accum = ( stop.tv_sec - start.tv_sec )
-          + ( stop.tv_nsec - start.tv_nsec )
-            / BILLION;
-    	printf( "%lf\n", accum );
+    	sort(sortAlgorythm, &numbers);
+      stop = getCurrentTimeInMS();
 		
-		timeEllapsed += accum;
-		free(numbers.array); 
+		  timeEllapsed += stop - start;
+		  free(numbers.array); 
 	}
-	return timeEllapsed / times;
+	return timeEllapsed / (unsigned long)times;
+}
+
+/*http://stackoverflow.com/questions/3756323/getting-the-current-time-in-milliseconds*/
+double getCurrentTimeInMS () {
+    struct timespec spec;
+    clock_gettime(CLOCK_MONOTONIC, &spec);
+    return spec.tv_nsec / 1000000L/* / 1.0e6*/; // Convert nanoseconds to milliseconds
 }
