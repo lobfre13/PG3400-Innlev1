@@ -32,7 +32,7 @@ int binarySearch(NumberList *numbers, int target) {
 }
 
 Number* binarySearch2(int count, Number *array, int target) {
-	if(count < 1) return &array[-1];
+	if(count < 2) return &array[-1];
 	int middle = count / 2;
 	if(array[middle].value == target) return &array[middle]; 
 	if(array[middle].value > target) return binarySearch2(count - middle, array, target);

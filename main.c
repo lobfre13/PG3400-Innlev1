@@ -12,15 +12,19 @@ NumberList numbers;
 int benchSize = 1000;
 int main(int argc, char *argv[]){
 	if(benchmarking(argc, argv, &benchSize)){
-		runBenchmark(100);
+		runBenchmark(benchSize);
 	}
 	else {
 		initArray(&numbers, 100);
-		readFile(argv[1], &numbers);
+		char filePath[260];
+		getFilePath(filePath, argc, argv);
+		readFile(filePath, &numbers);
 	
 		Sort option = getSortOption(argc, argv);
 		sort(option, &numbers);
-		//int target = getTarget();
+		int target = getTarget(argc, argv);
+		int result = binarySearch(&numbers, target);
+		printf("Found number: %d\n", numbers.array[result].value);
 		deInitArray(&numbers); 
 	}
   	return 0;
