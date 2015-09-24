@@ -26,7 +26,7 @@ double getAverage (int arraySize, Sort sortAlgorythm, char *algorithmName) {
 	printProgress(0, times, algorithmName);
 	double timeEllapsed = 0.0, startTime;
 	for (int i = 0; i < times; i++) {
-      	NumberList numbers;
+      	static NumberList numbers;
     	initArray(&numbers, 100);
     	fillListRandom(&numbers, arraySize);
 
@@ -35,7 +35,7 @@ double getAverage (int arraySize, Sort sortAlgorythm, char *algorithmName) {
 		timeEllapsed += getCurrentTimeInMS() - startTime;
 		
 		if(i % (times/100) == 0) updateProgress(i, times, algorithmName);
-		free(numbers.array); 
+		deInitArray(&numbers); 
 	}
 	updateProgress(times, times, algorithmName);
 	timeEllapsed = timeEllapsed / (double)times;
