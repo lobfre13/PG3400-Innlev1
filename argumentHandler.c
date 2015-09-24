@@ -19,6 +19,15 @@ Sort getSortOption(int argc, char *argv[]){
 	 return option;
 
 }
+int benchmarking(int argc, char *argv[], int *argument){
+	struct option options[] = {
+		{"bench", optional_argument, 0,  'b'}
+	};
+	int c = getopt_long(argc, argv, "b:", options, 0);
+	if(optarg != NULL)
+		*argument = *optarg;
+	return c == -1 ? 0 : 1;
+}
 /*http://stackoverflow.com/questions/865284/what-is-the-easiest-way-to-get-an-int-in-a-console-app*/
 
 int getUserInput () {

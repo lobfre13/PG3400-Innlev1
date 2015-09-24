@@ -18,3 +18,10 @@ void resizeArray(NumberList *numbers){
 	(*numbers).length *= 2;
 	(*numbers).array = realloc((*numbers).array, (*numbers).length * sizeof(Number));
 }
+
+void deInitArray(NumberList *numbers){
+	free((*numbers).array);
+	(*numbers).array = NULL;
+	(*numbers).count = 0;
+	(*numbers).length = 0;
+}

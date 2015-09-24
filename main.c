@@ -6,21 +6,23 @@
 
 void readFile(char filename[], NumberList* numbers);
 void sort();
-void benchmark(int times);
+void runBenchmark(int arraySize);
 
 NumberList numbers;
-
+int benchSize = 1000;
 int main(int argc, char *argv[]){
-	initArray(&numbers, 100);
-	readFile(argv[1], &numbers);
+	if(benchmarking(argc, argv, &benchSize)){
+		runBenchmark(100);
+	}
+	else {
+		initArray(&numbers, 100);
+		readFile(argv[1], &numbers);
 	
-	Sort option = getSortOption(argc, argv);
-	sort(option, &numbers);
-	//for(int i = 0; i < numbers.count; i++){ 
-	//	printf("Value: %d\torig: %d\n", numbers.array[i].value, numbers.array[i].originalIndex);
-	//}
-  	free(numbers.array); 
-  	benchmark(1000);
+		Sort option = getSortOption(argc, argv);
+		sort(option, &numbers);
+		//int target = getTarget();
+		deInitArray(&numbers); 
+	}
   	return 0;
 }
 
@@ -48,9 +50,9 @@ void readFile(char *filename, NumberList* numbers){
 	FILE *f = fopen (filename, "r");
 	int i = 0;
 	do{
-		fscanf (f, "%d", &i);
+		fscanf(f, "%d", &i);
 		addNumber(numbers, i);
-	}while (!feof (f));
+	}while(!feof (f));
 	fclose(f);
 }
 

@@ -12,28 +12,28 @@ void fillListRandom(NumberList *numbers, int count);
 void printProgress(int i, int total, char *algorithmName);
 void updateProgress(int i, int total, char *algorithmName);
 
-void benchmark (int times) {
-	getAverage(times, QUICKSORT, "Quicksort");
-	getAverage(times, MERGESORT, "Mergesort");
-	getAverage(times, INSERTIONSORT, "Insertionsort");
-	getAverage(times, SELECTIONSORT, "Selectionsort");
-	getAverage(times, BUBBLESORT, "Bubblesort");
+void runBenchmark (int arraySize) {
+	getAverage(arraySize, QUICKSORT, "Quicksort");
+	getAverage(arraySize, MERGESORT, "Mergesort");
+	getAverage(arraySize, INSERTIONSORT, "Insertionsort");
+	getAverage(arraySize, SELECTIONSORT, "Selectionsort");
+	getAverage(arraySize, BUBBLESORT, "Bubblesort");
 }
 
 /*http://users.pja.edu.pl/~jms/qnx/help/watcom/clibref/qnx/clock_gettime.html*/
-double getAverage (int times, Sort sortAlgorythm, char *algorithmName) {
+double getAverage (int arraySize, Sort sortAlgorythm, char *algorithmName) {
+	int times = 1000;
 	printProgress(0, times, algorithmName);
 	double timeEllapsed = 0.0, startTime;
 	for (int i = 0; i < times; i++) {
       	NumberList numbers;
     	initArray(&numbers, 100);
-    	fillListRandom(&numbers, 1000);
+    	fillListRandom(&numbers, arraySize);
 
     	startTime = getCurrentTimeInMS();
-
     	sort(sortAlgorythm, &numbers);
-		
 		timeEllapsed += getCurrentTimeInMS() - startTime;
+		
 		if(i % (times/100) == 0) updateProgress(i, times, algorithmName);
 		free(numbers.array); 
 	}
