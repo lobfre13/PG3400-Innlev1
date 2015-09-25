@@ -1,29 +1,57 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <unistd.h>
 #include <getopt.h>
 #include <string.h>
-#include "numberList.h"
-#include "sortAlgorithms/sorts.h"
+#include "headers/numberList.h"
+#include "headers/sorts.h"
 char *shortArguments = "mbisq";
 struct option longOptions[] = {{"bench", optional_argument, 0,  999}};
 
-void flush(){
+bool flush(){
 	char c;
 	while((c = getchar()) != '\n' && c != EOF);
+	return true;
 }
 
-void getFilePath(char *filePath, int argc, char *argv[]){
+bool filePathInArgs(char *filePath, int argc, char *argv[]){
 	for(int i = 1; i < argc; i++){
 		if(argv[i][0] != '-' && access(argv[i], F_OK) != -1 ) {
     		memcpy(filePath, argv[i], strlen(argv[i])+1); //including null terminator
-    		return;
+    		return true;
     	}
 	}
+	return false;
+}
+
+void askForFilePath(char *filePath, int argc, char *argv[]){
 	do{
 		printf("Please enter a valid file path: ");
 		scanf("%s", filePath);
 		flush();
 	} while(access(filePath, F_OK) == -1);
+}
+
+bool targetInArgs(int *num, int argc, char *argv[]){
+	for(int i = 1; i < argc; i++){
+		if(sscanf(argv[i], "%d", num) == 1) {
+	    	return true;
+	    }
+	}
+	return false;
+}
+
+//http://stackoverflow.com/questions/4072190/check-if-input-is-integer-type-in-c
+void askForTarget(int *num, int argc, char *argv[]){
+	char term;
+	do{
+		printf("Please enter a valid integer to search for: ");
+	}while((scanf("%d%c", num, &term) != 2 || term != '\n') && flush());
+}
+
+void getFilePath(char *filePath, int argc, char *argv[]){
+	if(filePathInArgs(filePath, argc, argv)) return;
+	else askForFilePath(filePath, argc, argv);
 }
 
 Sort getSortOption(int argc, char *argv[]){
@@ -34,23 +62,14 @@ Sort getSortOption(int argc, char *argv[]){
 		flush();
 		option = (memchr(shortArguments, i, 5) != NULL) ? i : -1;
 	}
-	 return option;
+	return option;
 
 }
-//http://stackoverflow.com/questions/4072190/check-if-input-is-integer-type-in-c
-int getTarget(int argc,char *argv[]){
+
+int getTarget(int argc, char *argv[]){
 	int num;
-	for(int i = 1; i < argc; i++){
-		if(sscanf(argv[i], "%d", &num) == 1) {
-    		return num;
-    	}
-	}
-	printf("Please enter a valid integer to search for: ");
-	char term;
-	while(scanf("%d%c", &num, &term) != 2 || term != '\n'){
-		flush();
-		printf("Please enter a valid integer to search for: ");
-	}
+	if(targetInArgs(&num, argc, argv));
+	else askForTarget(&num, argc, argv);
 	return num;
 }
 

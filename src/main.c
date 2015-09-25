@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "numberList.h"
-#include "sortAlgorithms/sorts.h"
-#include "argumentHandler.h"
+#include "headers/numberList.h"
+#include "headers/sorts.h"
+#include "headers/argumentHandler.h"
 
 void readFile(char filename[], NumberList* numbers);
 void sort();
@@ -53,8 +53,10 @@ void readFile(char *filename, NumberList* numbers){
 	FILE *f = fopen (filename, "r");
 	int i = 0;
 	do{
-		fscanf(f, "%d", &i);
-		addNumber(numbers, i);
+		if(fscanf(f, "%d", &i) == 1){ //read int
+			addNumber(numbers, i);
+		}
+		else fscanf(f, "%*c"); //eat chars
 	}while(!feof (f));
 	fclose(f);
 }

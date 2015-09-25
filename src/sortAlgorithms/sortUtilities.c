@@ -1,5 +1,5 @@
-#include "../number.h"
 #include <stdbool.h>
+#include "../headers/number.h"
 
 void swap(Number *one, Number *two){
    Number tmp = *one;

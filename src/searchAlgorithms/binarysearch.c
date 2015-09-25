@@ -1,4 +1,4 @@
-#include "../number.h"
+#include "../headers/number.h"
 
 //https://en.wikipedia.org/wiki/Binary_search_algorithm
 int b_Search(Number *numbers, int start, int end, int target) {
@@ -11,6 +11,6 @@ int b_Search(Number *numbers, int start, int end, int target) {
 }
 
 int binarySearch(NumberList *numbers, int target) {
-	return b_Search((*numbers).array, 0, (*numbers).count-1, target);
+	return b_Search(numbers->array, 0, numbers->count-1, target);
 }
 

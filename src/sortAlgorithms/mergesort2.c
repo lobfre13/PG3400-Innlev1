@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../number.h"
+#include "../headers/number.h"
 
 void mergesort2(NumberList *numbers){
 

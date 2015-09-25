@@ -1,12 +1,12 @@
-#include "../number.h"
-#include "sortUtilities.h"
+#include "../headers/number.h"
+#include "../headers/sortUtilities.h"
 
 void bubblesort(NumberList *numbers) {
-	Number *array = (*numbers).array;
+	Number *array = numbers->array;
 	bool swapped;
 	do{
 		swapped = false;
-		for (int j = 0; j < (*numbers).count-1; j++) {
+		for (int j = 0; j < numbers->count-1; j++) {
 			if(less(array[j+1], array[j])){
 				swap(&array[j], &array[j+1]);
 				swapped = true;

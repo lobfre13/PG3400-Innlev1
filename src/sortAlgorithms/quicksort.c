@@ -1,6 +1,6 @@
 // https://www.youtube.com/watch?v=aQiWF4E8flQ
-#include "../number.h"
-#include "sortUtilities.h"
+#include "../headers/number.h"
+#include "../headers/sortUtilities.h"
 
 void q_sort(int count, Number *numbers){
 	if(count < 2) return;
@@ -21,6 +21,6 @@ void q_sort(int count, Number *numbers){
 } 
 
 void quicksort(NumberList *numbers){
-	q_sort((*numbers).count, (*numbers).array);
+	q_sort(numbers->count, numbers->array);
 }
 

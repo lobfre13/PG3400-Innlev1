@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "numberList.h"
-#include "sortAlgorithms/sorts.h"
 #include <time.h>
-#include "colors.h"
+#include "headers/numberList.h"
+#include "headers/sorts.h"
+#include "headers/colors.h"
 
 double getAverage(int times, Sort sortAlgorythm, char *algorithmName);
 double getCurrentTimeInMS ();
