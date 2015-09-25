@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "numberList.h"
 #include "sortAlgorithms/sorts.h"
 #include "argumentHandler.h"
@@ -24,7 +23,7 @@ int main(int argc, char *argv[]){
 		sort(option, &numbers);
 		int target = getTarget(argc, argv);
 		int result = binarySearch(&numbers, target);
-		printf("Found number: %d\n", numbers.array[result].value);
+		printf("Found number: %d\n", result);
 		deInitArray(&numbers); 
 	}
   	return 0;

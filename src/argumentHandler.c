@@ -4,6 +4,9 @@
 #include <string.h>
 #include "numberList.h"
 #include "sortAlgorithms/sorts.h"
+char *shortArguments = "mbisq";
+struct option longOptions[] = {{"bench", optional_argument, 0,  999}};
+
 void flush(){
 	char c;
 	while((c = getchar()) != '\n' && c != EOF);
@@ -24,12 +27,12 @@ void getFilePath(char *filePath, int argc, char *argv[]){
 }
 
 Sort getSortOption(int argc, char *argv[]){
-	Sort option = getopt(argc, argv, "mbisq");
+	Sort option = getopt(argc, argv, shortArguments);
 	while(option == UNDEFINED){
 		printf("Please enter your choice of sorting algorithm:\nm (mergesort)\nb (bubblesort)\ns (selection sort)\ni (insertion sort)\nq (quicksort)\nYour choice: ");
 		char i = getchar();
 		flush();
-		option = (memchr("mbisq", i, 5) != NULL) ? i : -1;
+		option = (memchr(shortArguments, i, 5) != NULL) ? i : -1;
 	}
 	 return option;
 
@@ -52,10 +55,7 @@ int getTarget(int argc,char *argv[]){
 }
 
 int benchmarking(int argc, char *argv[], int *argument){
-	struct option options[] = {
-		{"bench", optional_argument, 0,  999},
-	};
-	int c = getopt_long(argc, argv,"mbisq", options, 0);
+	int c = getopt_long(argc, argv, shortArguments, longOptions, 0);
 	optind=1; //reseting getopt
 	if(c == 999 && optarg != NULL)
 		sscanf(optarg, "%d", argument);

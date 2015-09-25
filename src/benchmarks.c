@@ -12,7 +12,7 @@ void fillListRandom(NumberList *numbers, int count);
 void printProgress(int i, int total, char *algorithmName);
 void updateProgress(int i, int total, char *algorithmName);
 
-void runBenchmark (int arraySize) {
+void runBenchmark(int arraySize) {
 	getAverage(arraySize, QUICKSORT, "Quicksort");
 	getAverage(arraySize, MERGESORT, "Mergesort");
 	getAverage(arraySize, INSERTIONSORT, "Insertionsort");
@@ -21,7 +21,7 @@ void runBenchmark (int arraySize) {
 }
 
 /*http://users.pja.edu.pl/~jms/qnx/help/watcom/clibref/qnx/clock_gettime.html*/
-double getAverage (int arraySize, Sort sortAlgorythm, char *algorithmName) {
+double getAverage(int arraySize, Sort sortAlgorythm, char *algorithmName) {
 	int times = 1000;
 	printProgress(0, times, algorithmName);
 	double timeEllapsed = 0.0, startTime;
@@ -56,12 +56,12 @@ void printProgress(int i, int total, char *algorithmName){
 }
 
 void updateProgress(int i, int total, char *algorithmName){
-	printf("\033[F\033[J");
+	printf("\033[F\033[J"); //Remove last output line
 	printProgress(i, total, algorithmName);
 }
 
 /*http://stackoverflow.com/questions/3756323/getting-the-current-time-in-milliseconds*/
-double getCurrentTimeInMS () {
+double getCurrentTimeInMS() {
     return  ((double)clock() / CLOCKS_PER_SEC ) * 1000;
 }
 

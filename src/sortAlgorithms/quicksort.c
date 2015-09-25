@@ -1,14 +1,6 @@
 // https://www.youtube.com/watch?v=aQiWF4E8flQ
-#include <stdio.h>
-#include <stdlib.h>
 #include "../number.h"
 #include "sortUtilities.h"
-
-void q_sort(int count, Number *numbers);
-
-void quicksort(NumberList *numbers){
-	q_sort((*numbers).count, (*numbers).array);
-}
 
 void q_sort(int count, Number *numbers){
 	if(count < 2) return;
@@ -27,3 +19,8 @@ void q_sort(int count, Number *numbers){
 	q_sort(leftCount, numbers); //Sort left side of pivot
 	q_sort(rightCount, &numbers[leftCount]); //Sort right side of pivot
 } 
+
+void quicksort(NumberList *numbers){
+	q_sort((*numbers).count, (*numbers).array);
+}
+

@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "../number.h"
 #include "sortUtilities.h"
 
