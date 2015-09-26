@@ -7,9 +7,9 @@
 #define REQUEST_VALID_FILE_PATH "Please enter a valid file path: "
 #define REQUEST_INTEGER "Please enter a valid integer to search for: "
 #define REQUEST_SORT_ALGORITHM "Please enter your choice of sorting algorithm:\n" \
-								"-m (mergesort)\n" \
-								"-b (bubblesort)\n" \
+								"-m (merge sort)\n" \
+								"-b (bubble sort)\n" \
 								"-s (selection sort)\n" \
 								"-i (insertion sort)\n" \
-								"-q (quicksort)\n" \
+								"-q (quick sort)\n" \
 								"Your choice: "
