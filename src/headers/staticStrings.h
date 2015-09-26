@@ -1,3 +1,6 @@
+#ifndef STATICSTRINGS
+#define STATICSTRINGS
+
 #define BENCHMARK_HEADER "Benchmarking average of a thousand sorts:\n"
 #define NUMBER_NOT_FOUND "Did not find number %d in the selected file.\n"
 #define NUMBER_FOUND "Found number %d in index %d.\n"
@@ -13,3 +16,6 @@
 								"-i (insertion sort)\n" \
 								"-q (quick sort)\n" \
 								"Your choice: "
+
+
+#endif

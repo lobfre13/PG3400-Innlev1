@@ -4,15 +4,16 @@
 #include "headers/numberList.h"
 #include "headers/sorts.h"
 #include "headers/colors.h"
+#include "headers/staticStrings.h"
 
 double getAverage(int times, Sort sortAlgorithm, char *algorithmName);
 double getCurrentTimeInMS ();
-void sort();
 void fillListRandom(NumberList *numbers, int count);
 void printProgress(int i, int total, char *algorithmName);
 void updateProgress(int i, int total, char *algorithmName);
 
 void runBenchmark(int arraySize) {
+	printf(BENCHMARK_HEADER);
 	getAverage(arraySize, QUICKSORT, "Quicksort");
 	getAverage(arraySize, MERGESORT, "Mergesort");
 	getAverage(arraySize, INSERTIONSORT, "Insertionsort");

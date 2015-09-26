@@ -1,3 +1,8 @@
+#ifndef SORTS
+#define SORTS
+
+#include "number.h"
+
 typedef enum {
 	UNDEFINED = -1,
 	MERGESORT = 'm',
@@ -12,4 +17,6 @@ void bubblesort(NumberList *numbers);
 void insertionsort(NumberList *numbers);
 void mergesort(NumberList *numbers);
 void quicksort(NumberList *numbers);
-int binarySearch(NumberList *numbers, int target);
+void sort(Sort sortOption, NumberList* numbers);
+
+#endif

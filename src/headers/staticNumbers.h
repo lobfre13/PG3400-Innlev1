@@ -1,0 +1,8 @@
+#ifndef STATICNUMBERS
+#define STATICNUMBERS
+
+#define MAX_PATH_LENGTH 260
+#define ARRAY_INIT_LENGTH 100
+#define BENCH_KEY 999
+
+#endif

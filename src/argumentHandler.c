@@ -8,8 +8,9 @@
 #include "headers/numberList.h"
 #include "headers/sorts.h"
 #include "headers/staticStrings.h"
+#include "headers/staticNumbers.h"
 
-struct option longOptions[] = {{"bench", optional_argument, 0,  999}};
+struct option longOptions[] = {{"bench", optional_argument, 0,  BENCH_KEY}};
 
 void flush(FILE *inputStream){
 	char c;
@@ -50,7 +51,7 @@ bool targetInArgs(int *num, int argc, char *argv[]){
 
 void askForFilePath(char *filePath, FILE *inputStream){
 	printf(REQUEST_VALID_FILE_PATH);
-	fgets(filePath, 260, inputStream);
+	fgets(filePath, MAX_PATH_LENGTH, inputStream);
 	if(filePath[0] != '\n' && filePath[strlen(filePath)-1] != '\n') flush(inputStream);
 	trim(filePath);
 }
@@ -104,7 +105,7 @@ int getTarget(int argc, char *argv[]){
 int benchmarkFlag(int argc, char *argv[], int *argument){
 	int c = getopt_long(argc, argv, SHORT_ARGUMENTS, longOptions, 0);
 	optind=1; //resetting getopt
-	if(c == 999 && optarg != NULL)
+	if(c == BENCH_KEY && optarg != NULL)
 		sscanf(optarg, "%d", argument);
-	return c == 999 ? 1 : 0;
+	return c == BENCH_KEY ? 1 : 0;
 }
