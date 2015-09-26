@@ -37,7 +37,7 @@ bool filePathInArgs(char *filePath, int argc, char *argv[]){
     	}
 	}
 	return false;
-} 
+}
 
 bool targetInArgs(int *num, int argc, char *argv[]){
 	for(int i = 1; i < argc; i++){
@@ -49,23 +49,17 @@ bool targetInArgs(int *num, int argc, char *argv[]){
 }
 
 void askForFilePath(char *filePath, FILE *inputStream){
-	do{
-		printf(REQUEST_VALID_FILE_PATH);
-		fgets(filePath, 260, inputStream);
-		if(filePath[0] != '\n' && filePath[strlen(filePath)-1] != '\n') flush(inputStream);
-		trim(filePath);
-	} while(!isFile(filePath) || access(filePath, F_OK) == -1);
+	printf(REQUEST_VALID_FILE_PATH);
+	fgets(filePath, 260, inputStream);
+	if(filePath[0] != '\n' && filePath[strlen(filePath)-1] != '\n') flush(inputStream);
+	trim(filePath);
 }
 
 //http://stackoverflow.com/questions/4072190/check-if-input-is-integer-type-in-c
-void askForTarget(int *num, int argc, char *argv[], FILE *inputStream){
-	char term;
-	char line[30];
-	do{
-		printf(REQUEST_INTEGER);
-		fgets(line, 30, inputStream);
-		if(line[0] != '\n' && line[strlen(line)-1] != '\n') flush(inputStream);
-	}while((sscanf(line, "%d%c", num, &term) != 2 || term != '\n'));
+void askForTarget(char *buffer, int length, FILE *inputStream){
+	printf(REQUEST_INTEGER);
+	fgets(buffer, length, inputStream);
+	if(buffer[0] != '\n' && buffer[strlen(buffer)-1] != '\n') flush(inputStream);
 }
 
 Sort askForNewSortOption(FILE *inputStream){
@@ -78,7 +72,11 @@ Sort askForNewSortOption(FILE *inputStream){
 
 void getFilePath(char *filePath, int argc, char *argv[]){
 	if(filePathInArgs(filePath, argc, argv));
-	else askForFilePath(filePath, stdin);
+	else{
+		do{
+			askForFilePath(filePath, stdin);
+		} while(!isFile(filePath) || access(filePath, F_OK) == -1);
+	} 
 }
 
 Sort getSortOption(int argc, char *argv[]){
@@ -92,7 +90,14 @@ Sort getSortOption(int argc, char *argv[]){
 int getTarget(int argc, char *argv[]){
 	int num;
 	if(targetInArgs(&num, argc, argv));
-	else askForTarget(&num, argc, argv, stdin);
+	else{
+		char term;
+		char line[30];
+		do{
+			askForTarget(line, 30, stdin);
+		}while((sscanf(line, "%d%c", &num, &term) != 2 || term != '\n'));
+
+	}
 	return num;
 }
 
