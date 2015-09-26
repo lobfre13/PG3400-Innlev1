@@ -1,4 +1,4 @@
-SRC = allTests.c firstTest.c CuTest.c
+SRC = allTests.c argumentHandlerTest.c CuTest.c
 PROG = test
 CFLAGS = -Wall -Werror -std=c11 -g
 $(PROG): $(SRC)

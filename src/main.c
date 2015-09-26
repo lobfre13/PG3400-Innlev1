@@ -4,13 +4,13 @@
 #include "headers/argumentHandler.h"
 
 void readFile(char filename[], NumberList* numbers);
-void sort();
+void sort(Sort sortOption, NumberList* numbers);
 void runBenchmark(int arraySize);
 
 NumberList numbers;
 int benchSize = 1000;
 int main(int argc, char *argv[]){
-	if(benchmarking(argc, argv, &benchSize)){
+	if(benchmarFlag(argc, argv, &benchSize)){
 		runBenchmark(benchSize);
 	}
 	else {
