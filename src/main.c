@@ -10,7 +10,7 @@ void runBenchmark(int arraySize);
 NumberList numbers;
 int benchSize = 1000;
 int main(int argc, char *argv[]){
-	if(benchmarFlag(argc, argv, &benchSize)){
+	if(benchmarkFlag(argc, argv, &benchSize)){
 		printf("Benchmark average of a thousand sorts:\n");
 		runBenchmark(benchSize);
 	}

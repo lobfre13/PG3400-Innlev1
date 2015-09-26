@@ -15,43 +15,44 @@ void rmTmpFile(){
     
 void testFilePathInArgs(CuTest *tc) {
     createTmpFile();
-    char filePath[260];
+    char *filePath = calloc(260, sizeof(char));
     char *argv[] = {
         "testing",
         tmpFile
     };
     CuAssertIntEquals(tc, true, filePathInArgs(filePath, 2, argv));
     rmTmpFile();
+    free(filePath);
 }
 
 void testFilePathInArgs_invalidPath(CuTest *tc){
-    char filePath[260];
+    char *filePath = calloc(260, sizeof(char));
     char *argv[] = {
         "testing",
         tmpFile
     };
     CuAssertIntEquals(tc, false, filePathInArgs(filePath, 2, argv));
+    free(filePath);
 }
 
+/*
+* This test failed if infinite loop 
+*/
 void testAskForFilePath(CuTest *tc){
     createTmpFile();
     fprintf(tmp, "%s\n", tmpFile); 
-    char filePath[260]; 
+    char *filePath = calloc(260, sizeof(char)); 
+    
     fclose(tmp);
     tmp = fopen(tmpFile, "r");
-    //askForFilePath(filePath, tmp);
+
+    CuAssertStrNotEquals(tc, tmpFile, filePath);
+    askForFilePath(filePath, tmp);
 
     CuAssertStrEquals(tc, tmpFile, filePath);
-    //createTmpFile();
     rmTmpFile();
-
+    free(filePath);
 }
-/*void testFile2PathInArgs(CuTest *tc) {
-    char* input = "hello world";
-    //char* actual = StrToUpper(input);
-    char* expected = "HELLO WORLD";
-    CuAssertStrEquals(tc, expected, actual);
-}*/
    
 CuSuite* StrUtilGetSuite() {
     CuSuite* suite = CuSuiteNew();

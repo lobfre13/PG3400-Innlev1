@@ -33,14 +33,6 @@ bool filePathInArgs(char *filePath, int argc, char *argv[]){
 	return false;
 }
 
-void askForFilePath(char *filePath, FILE *stream){
-	do{
-		printf("Please enter a valid file path: ");
-		fgets(filePath, 260, stream);
-		trim(filePath);
-	} while(access(filePath, F_OK) == -1);
-}
-
 bool targetInArgs(int *num, int argc, char *argv[]){
 	for(int i = 1; i < argc; i++){
 		if(sscanf(argv[i], "%d", num) == 1) {
@@ -50,16 +42,24 @@ bool targetInArgs(int *num, int argc, char *argv[]){
 	return false;
 }
 
+void askForFilePath(char *filePath, FILE *inputStream){
+	do{
+		printf("Please enter a valid file path: ");
+		fgets(filePath, 260, inputStream);
+		trim(filePath);
+	} while(access(filePath, F_OK) == -1);
+}
+
 //http://stackoverflow.com/questions/4072190/check-if-input-is-integer-type-in-c
-void askForTarget(int *num, int argc, char *argv[], FILE *stream){
+void askForTarget(int *num, int argc, char *argv[], FILE *inputStream){
 	char term;
 	do{
 		printf("Please enter a valid integer to search for: ");
-	}while((fscanf(stream, "%d%c", num, &term) != 2 || term != '\n') && flush(stream));
+	}while((fscanf(inputStream, "%d%c", num, &term) != 2 || term != '\n') && flush(inputStream));
 }
 
 void getFilePath(char *filePath, int argc, char *argv[]){
-	if(filePathInArgs(filePath, argc, argv)) return;
+	if(filePathInArgs(filePath, argc, argv));
 	else askForFilePath(filePath, stdin);
 }
 
@@ -70,7 +70,7 @@ Sort getSortOption(int argc, char *argv[]){
 		char i;
 		fscanf(stdin, "%c", &i);
 		flush(stdin);
-		option = (memchr(shortArguments, i, 5) != NULL) ? i : -1;
+		option = (memchr(shortArguments, i, strlen(shortArguments)) != NULL) ? i : -1;
 	}
 	return option;
 
@@ -83,7 +83,7 @@ int getTarget(int argc, char *argv[]){
 	return num;
 }
 
-int benchmarFlag(int argc, char *argv[], int *argument){
+int benchmarkFlag(int argc, char *argv[], int *argument){
 	int c = getopt_long(argc, argv, shortArguments, longOptions, 0);
 	optind=1; //reseting getopt
 	if(c == 999 && optarg != NULL)
