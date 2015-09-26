@@ -5,8 +5,8 @@
 #include <string.h>
 #include "headers/numberList.h"
 #include "headers/sorts.h"
+#include "headers/staticStrings.h"
 
-char *shortArguments = "mbisq";
 struct option longOptions[] = {{"bench", optional_argument, 0,  999}};
 
 bool flush(FILE *stream){
@@ -18,9 +18,7 @@ bool flush(FILE *stream){
 }
 
 void trim(char *string){
-	int last = strlen(string) - 1;
-	if (string[last] == '\n')
-    	string[last] = '\0';
+    string[strcspn(string, "\n")] = '\0';
 }
 
 bool filePathInArgs(char *filePath, int argc, char *argv[]){
@@ -44,8 +42,9 @@ bool targetInArgs(int *num, int argc, char *argv[]){
 
 void askForFilePath(char *filePath, FILE *inputStream){
 	do{
-		printf("Please enter a valid file path: ");
+		printf(REQUEST_VALID_FILE_PATH);
 		fgets(filePath, 260, inputStream);
+		if(filePath[0] != '\n' && filePath[strlen(filePath)-1] != '\n') flush(inputStream);
 		trim(filePath);
 	} while(access(filePath, F_OK) == -1);
 }
@@ -54,8 +53,16 @@ void askForFilePath(char *filePath, FILE *inputStream){
 void askForTarget(int *num, int argc, char *argv[], FILE *inputStream){
 	char term;
 	do{
-		printf("Please enter a valid integer to search for: ");
+		printf(REQUEST_INTEGER);
 	}while((fscanf(inputStream, "%d%c", num, &term) != 2 || term != '\n') && flush(inputStream));
+}
+
+Sort askForNewSortOption(){
+	printf(REQUEST_SORT_ALGORITHM);
+	char c[3];
+	fgets(c, 3, stdin);
+	if(c[0] != '\n' && c[strlen(c)-1] != '\n') flush(stdin);
+    return (memchr(SHORT_ARGUMENTS, c[1], strlen(SHORT_ARGUMENTS)) != NULL) ? c[1] : -1;
 }
 
 void getFilePath(char *filePath, int argc, char *argv[]){
@@ -64,16 +71,11 @@ void getFilePath(char *filePath, int argc, char *argv[]){
 }
 
 Sort getSortOption(int argc, char *argv[]){
-	Sort option = getopt(argc, argv, shortArguments);
+	Sort option = getopt(argc, argv, SHORT_ARGUMENTS);
 	while(option == UNDEFINED){
-		printf("Please enter your choice of sorting algorithm:\nm (mergesort)\nb (bubblesort)\ns (selection sort)\ni (insertion sort)\nq (quicksort)\nYour choice: ");
-		char i;
-		fscanf(stdin, "%c", &i);
-		flush(stdin);
-		option = (memchr(shortArguments, i, strlen(shortArguments)) != NULL) ? i : -1;
+		option = askForNewSortOption();
 	}
 	return option;
-
 }
 
 int getTarget(int argc, char *argv[]){
@@ -84,8 +86,8 @@ int getTarget(int argc, char *argv[]){
 }
 
 int benchmarkFlag(int argc, char *argv[], int *argument){
-	int c = getopt_long(argc, argv, shortArguments, longOptions, 0);
-	optind=1; //reseting getopt
+	int c = getopt_long(argc, argv, SHORT_ARGUMENTS, longOptions, 0);
+	optind=1; //resetting getopt
 	if(c == 999 && optarg != NULL)
 		sscanf(optarg, "%d", argument);
 	return c == 999 ? 1 : 0;

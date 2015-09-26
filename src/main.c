@@ -2,6 +2,7 @@
 #include "headers/numberList.h"
 #include "headers/sorts.h"
 #include "headers/argumentHandler.h"
+#include "headers/staticStrings.h"
 
 void readFile(char filename[], NumberList* numbers);
 void sort(Sort sortOption, NumberList* numbers);
@@ -11,7 +12,7 @@ NumberList numbers;
 int benchSize = 1000;
 int main(int argc, char *argv[]){
 	if(benchmarkFlag(argc, argv, &benchSize)){
-		printf("Benchmark average of a thousand sorts:\n");
+		printf(BENCHMARK_HEADER);
 		runBenchmark(benchSize);
 	}
 	else {
@@ -25,9 +26,9 @@ int main(int argc, char *argv[]){
 		int target = getTarget(argc, argv);
 		int result = binarySearch(&numbers, target);
 		if (result == -1) {
-			printf("Did not find number %d in the selected file.\n", target);
+			printf(NUMBER_NOT_FOUND, target);
 		} else {
-			printf("Found number %d in index %d.\n", target, result);
+			printf(NUMBER_FOUND, target, result);
 		}
 		deInitArray(&numbers); 
 	}
