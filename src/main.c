@@ -11,6 +11,7 @@ NumberList numbers;
 int benchSize = 1000;
 int main(int argc, char *argv[]){
 	if(benchmarking(argc, argv, &benchSize)){
+		printf("Benchmark average of a thousand sorts:\n");
 		runBenchmark(benchSize);
 	}
 	else {
@@ -23,8 +24,12 @@ int main(int argc, char *argv[]){
 		sort(option, &numbers);
 		int target = getTarget(argc, argv);
 		int result = binarySearch(&numbers, target);
-		printf("Found number: %d\n", result);
-		deInitArray(&numbers); 
+		if (result == -1) {
+			printf("Did not find number %d in the selected file.\n", target);
+		} else {
+			printf("Found number %d in index %d.\n", target, result);
+			deInitArray(&numbers); 
+		}
 	}
   	return 0;
 }
