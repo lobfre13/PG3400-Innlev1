@@ -9,12 +9,18 @@ void runBenchmark(int arraySize);
 
 NumberList numbers;
 int benchSize = 1000;
+
 int main(int argc, char *argv[]){
 	if(benchmarFlag(argc, argv, &benchSize)){
 		printf("Benchmark average of a thousand sorts:\n");
 		runBenchmark(benchSize);
-	}
-	else {
+	} else if (helpFlag()) {
+		printf("usage: mbisq [--bench] [--help]\n"); 
+		printf("-\n");
+		printf("\tmbisq [-m] [-b] [-i] [-s] [-q] [-<some number>]\n");
+		//printf("The most commonly used mbisq commands are:\n");
+		//printf("\t\n");
+	} else {
 		initArray(&numbers, 100);
 		char filePath[260];
 		getFilePath(filePath, argc, argv);
