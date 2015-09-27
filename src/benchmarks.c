@@ -21,7 +21,6 @@ void runBenchmark(int arraySize) {
 	getAverage(arraySize, BUBBLESORT, "Bubblesort");
 }
 
-/*http://users.pja.edu.pl/~jms/qnx/help/watcom/clibref/qnx/clock_gettime.html*/
 double getAverage(int arraySize, Sort sortAlgorithm, char *algorithmName) {
 	int times = 1000;
 	printProgress(0, times, algorithmName);
@@ -59,7 +58,6 @@ void updateProgress(int i, int total, char *algorithmName){
 	printProgress(i, total, algorithmName);
 }
 
-/*http://stackoverflow.com/questions/3756323/getting-the-current-time-in-milliseconds*/
 double getCurrentTimeInMS() {
     return  ((double)clock() / CLOCKS_PER_SEC ) * 1000;
 }
