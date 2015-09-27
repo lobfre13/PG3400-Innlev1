@@ -25,15 +25,13 @@ void runBenchmark(int arraySize) {
 double getAverage(int arraySize, Sort sortAlgorithm, char *algorithmName) {
 	int times = 1000;
 	printProgress(0, times, algorithmName);
-	double timeEllapsed = 0.0, startTime;
+	double timeEllapsed = 0.0;
 	for (int i = 0; i < times; i++) {
       	static NumberList numbers;
-    	initArray(&numbers, 100);
+    	initArray(&numbers, arraySize);
     	fillListRandom(&numbers, arraySize);
 
-    	startTime = getCurrentTimeInMS();
-    	sort(sortAlgorithm, &numbers);
-		timeEllapsed += getCurrentTimeInMS() - startTime;
+    	timeEllapsed += measureSort(sortAlgorithm, &numbers);
 		
 		if(i % (times/100) == 0) updateProgress(i, times, algorithmName);
 		deInitArray(&numbers); 
@@ -70,4 +68,10 @@ void fillListRandom(NumberList *numbers, int count){
 	for(int i = 0; i < count; i++){
 		addNumber(numbers, rand());
 	}
+}
+
+double measureSort (Sort sortAlgorithm, NumberList *numbers) {
+	double startTime = getCurrentTimeInMS();
+    sort(sortAlgorithm, numbers);
+	return getCurrentTimeInMS() - startTime;
 }
