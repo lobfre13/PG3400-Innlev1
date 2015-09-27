@@ -16,8 +16,12 @@
 								"-i (insertion sort)\n" \
 								"-q (quicksort)\n" \
 								"Your choice: "
-#define HELPER_TEXT "Welcome to mbisq w/benchmarks! Enjoy your stay!\n"	\
-								"Usage:\t\tmbisq [filepath] -m [number]\n\n" \
+#define HELPER_TEXT "HELPER MENU - mbisq\n" \
+								"Welcome to mbisq w/benchmarks! Enjoy your stay!\n"	\
+								"Usage:\t\tmbisq [filepath] -[sort algorithm] [number]\n" \
+								"\t\tmbisq --help\n" \
+								"\t\tmbisq --bench\n" \
+								"\t\tmbisq\t\t(Interactive mode)\n\n" \
 								"Available flags:\n\n" \
 								"--help\t\tDisplay the help and exit\n"	\
 								"--bench\t\tRun a test of the sort algorithms and display the results\n" \

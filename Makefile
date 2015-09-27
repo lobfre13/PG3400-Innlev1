@@ -5,7 +5,7 @@ src/numberList.c\
 src/argumentHandler.c\
 src/benchmarks.c\
 src/streamReader.c
-PROG = main
+PROG = mbisq
 CFLAGS = -Wall -Werror -std=c11 -g
 $(PROG): $(SRC)
 	gcc $(CFLAGS) $(SRC) -o $(PROG)
