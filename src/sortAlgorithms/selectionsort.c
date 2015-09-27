@@ -9,7 +9,7 @@ void selectionsort(NumberList *numbers){
 				smallestIndex = j;
 			} 
 		}
-		if(i != smallestIndex)
+		if(i != smallestIndex) 
 			swap(&numbers->array[i], &numbers->array[smallestIndex]);
 	}
 }
