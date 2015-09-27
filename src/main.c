@@ -8,11 +8,11 @@
 #include "headers/benchmark.h"
 #include "headers/streamReader.h"
 
-void printResult(int result, int target) {
+void printResult(int result, int target, NumberList *numbers) {
 	if (result == -1) {
 		printf(NUMBER_NOT_FOUND, target);
 	} else {
-		printf(NUMBER_FOUND, target, result);
+		printf(NUMBER_FOUND, target, result, numbers->array[result].originalIndex);
 	}
 }
 
@@ -28,7 +28,7 @@ void excecuteMainTask (int argc, char *argv[]) {
 
 	int target = getTarget(argc, argv);
 	int result = binarySearch(&numbers, target);
-	printResult(result, target);
+	printResult(result, target, &numbers);
 
 	deInitArray(&numbers);
 }

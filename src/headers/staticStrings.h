@@ -3,7 +3,8 @@
 
 #define BENCHMARK_HEADER "Benchmarking average of a thousand sorts:\n"
 #define NUMBER_NOT_FOUND "Did not find number %d in the selected file.\n"
-#define NUMBER_FOUND "Found number %d in index %d.\n"
+#define NUMBER_FOUND "Found number %d in index %d.\n"\
+					  "The number had an original index %d.\n"
 
 #define SHORT_ARGUMENTS "mbisq"
 
