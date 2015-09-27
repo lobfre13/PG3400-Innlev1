@@ -14,8 +14,17 @@
 								"-b (bubble sort)\n" \
 								"-s (selection sort)\n" \
 								"-i (insertion sort)\n" \
-								"-q (quick sort)\n" \
+								"-q (quicksort)\n" \
 								"Your choice: "
-
+#define HELPER_TEXT "Welcome to mbisq w/benchmarks! Enjoy your stay!\n"	\
+								"Usage:\t\tmbisq [filepath] -m [number]\n\n" \
+								"Available flags:\n\n" \
+								"--help\t\tDisplay the help and exit\n"	\
+								"--bench\t\tRun a test of the sort algorithms and display the results\n" \
+								"-m\t\tUse the merge sort algorithm\n" \
+								"-b\t\teUse the bubble sort algorithm\n" \
+								"-i\t\tUse the insertion sort algorithm\n" \
+								"-s\t\tUse the selection sort algorithm\n" \
+								"-q\t\tUse the quicksort algorithm\n\n" \
 
 #endif

@@ -4,5 +4,6 @@
 #define MAX_PATH_LENGTH 260
 #define ARRAY_INIT_LENGTH 100
 #define BENCH_KEY 999
+#define HELP_KEY 888
 
 #endif

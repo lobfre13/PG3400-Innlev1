@@ -14,12 +14,8 @@ int benchSize = 1000;
 int main(int argc, char *argv[]){
 	if(benchmarkFlag(argc, argv, &benchSize)){
 		runBenchmark(benchSize);
-	} else if (helpFlag()) {
-		printf("usage: mbisq [--bench] [--help]\n"); 
-		printf("-\n");
-		printf("\tmbisq [-m] [-b] [-i] [-s] [-q] [-<some number>]\n");
-		//printf("The most commonly used mbisq commands are:\n");
-		//printf("\t\n");
+	} else if (helperFlag(argc, argv)) {
+		printf(HELPER_TEXT);
 	} else {
 		initArray(&numbers, ARRAY_INIT_LENGTH);
 		char filePath[MAX_PATH_LENGTH];

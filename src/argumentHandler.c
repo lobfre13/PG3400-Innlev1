@@ -10,7 +10,8 @@
 #include "headers/staticStrings.h"
 #include "headers/staticNumbers.h"
 
-struct option longOptions[] = {{"bench", optional_argument, 0,  BENCH_KEY}};
+struct option longOptions[] = {{"bench", optional_argument, 0,  BENCH_KEY}, 
+								{"help", no_argument, 0, HELP_KEY}};
 
 void flush(FILE *inputStream){
 	char c;
@@ -102,10 +103,16 @@ int getTarget(int argc, char *argv[]){
 	return num;
 }
 
-int benchmarkFlag(int argc, char *argv[], int *argument){
+bool benchmarkFlag(int argc, char *argv[], int *argument){
 	int c = getopt_long(argc, argv, SHORT_ARGUMENTS, longOptions, 0);
 	optind=1; //resetting getopt
 	if(c == BENCH_KEY && optarg != NULL)
 		sscanf(optarg, "%d", argument);
-	return c == BENCH_KEY ? 1 : 0;
+	return c == BENCH_KEY;
+}
+
+bool helperFlag (int argc, char *argv[]) {
+	int c = getopt_long(argc, argv, SHORT_ARGUMENTS, longOptions, 0);
+	optind=1; //resetting getopt
+	return c == HELP_KEY;
 }
