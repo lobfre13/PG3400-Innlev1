@@ -11,6 +11,7 @@ double getCurrentTimeInMS ();
 void fillListRandom(NumberList *numbers, int count);
 void printProgress(int i, int total, char *algorithmName);
 void updateProgress(int i, int total, char *algorithmName);
+double measureSort (Sort sortAlgorithm, NumberList *numbers);
 
 void runBenchmark(int arraySize) {
 	printf(BENCHMARK_HEADER);
