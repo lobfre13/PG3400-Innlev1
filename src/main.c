@@ -12,7 +12,7 @@ void printResult(int result, int target, NumberList *numbers) {
 	if (result == -1) {
 		printf(NUMBER_NOT_FOUND, target);
 	} else {
-		printf(NUMBER_FOUND, target, result, result, numbers->array[result].originalIndex);
+		printf(NUMBER_FOUND, target, result, target, numbers->array[result].originalIndex);
 	}
 }
 
