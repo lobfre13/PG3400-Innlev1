@@ -1,9 +1,9 @@
 //http://geeksquiz.com/merge-sort/
 #include <stdlib.h>
+#include <string.h>
 #include "../headers/number.h"
 void split(int start, int end, Number *array);
 void merge(int start, int mid, int end, Number *array);
-void copyToTmp(int start, int end, Number *array);
 Number *tmpArr;
 
 void mergesort(NumberList *numbers){
@@ -19,7 +19,7 @@ void split(int start, int end, Number *array){
 	split(start, mid, array);
 	split(mid+1, end, array);
 
-	copyToTmp(start, end, array);
+	memcpy(&tmpArr[start], &array[start], ((end - start) + 1) * sizeof(Number));
 	merge(start, mid, end, array);
 }
 
@@ -44,10 +44,4 @@ void merge(int start, int mid, int end, Number *array){
 		array[destCursor++] = tmpArr[rightCursor++];
 	}
 
-}
-
-void copyToTmp(int start, int end, Number *array){
-	for(int i = start; i <= end; i++){
-		tmpArr[i] = array[i]; 
-	}
 }

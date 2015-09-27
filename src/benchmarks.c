@@ -4,15 +4,16 @@
 #include "headers/numberList.h"
 #include "headers/sorts.h"
 #include "headers/colors.h"
+#include "headers/staticStrings.h"
 
-double getAverage(int times, Sort sortAlgorythm, char *algorithmName);
+double getAverage(int times, Sort sortAlgorithm, char *algorithmName);
 double getCurrentTimeInMS ();
-void sort();
 void fillListRandom(NumberList *numbers, int count);
 void printProgress(int i, int total, char *algorithmName);
 void updateProgress(int i, int total, char *algorithmName);
 
 void runBenchmark(int arraySize) {
+	printf(BENCHMARK_HEADER);
 	getAverage(arraySize, QUICKSORT, "Quicksort");
 	getAverage(arraySize, MERGESORT, "Mergesort");
 	getAverage(arraySize, INSERTIONSORT, "Insertionsort");
@@ -21,7 +22,7 @@ void runBenchmark(int arraySize) {
 }
 
 /*http://users.pja.edu.pl/~jms/qnx/help/watcom/clibref/qnx/clock_gettime.html*/
-double getAverage(int arraySize, Sort sortAlgorythm, char *algorithmName) {
+double getAverage(int arraySize, Sort sortAlgorithm, char *algorithmName) {
 	int times = 1000;
 	printProgress(0, times, algorithmName);
 	double timeEllapsed = 0.0, startTime;
@@ -31,7 +32,7 @@ double getAverage(int arraySize, Sort sortAlgorythm, char *algorithmName) {
     	fillListRandom(&numbers, arraySize);
 
     	startTime = getCurrentTimeInMS();
-    	sort(sortAlgorythm, &numbers);
+    	sort(sortAlgorithm, &numbers);
 		timeEllapsed += getCurrentTimeInMS() - startTime;
 		
 		if(i % (times/100) == 0) updateProgress(i, times, algorithmName);

@@ -1,3 +1,6 @@
+#ifndef NUMBER
+#define NUMBER
+
 typedef struct {
 	int value;
 	int originalIndex;
@@ -8,3 +11,6 @@ typedef struct {
 	int length;
 	int count;
 }NumberList;
+
+
+#endif
