@@ -4,7 +4,7 @@
 #define BENCHMARK_HEADER "Benchmarking average of a thousand sorts:\n"
 #define NUMBER_NOT_FOUND "Did not find number %d in the selected file.\n"
 #define NUMBER_FOUND "Found number %d in index %d.\n"\
-					  "The number's original position was %d.\n"
+					  "The number %d's original position was %d.\n"
 
 #define SORTING_STARTED "Sorting started...\n"
 #define SORTING_FINISHED "Sorting finished!\n"

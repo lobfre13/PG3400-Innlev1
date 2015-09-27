@@ -1,9 +1,6 @@
-#include <stdio.h>
 #include "../headers/sorts.h"
-#include "../headers/staticStrings.h"
 
 void sort(Sort sortOption, NumberList* numbers){
-	printf(SORTING_STARTED);
 	switch(sortOption){
 		case BUBBLESORT:
 			bubblesort(numbers);
@@ -21,5 +18,4 @@ void sort(Sort sortOption, NumberList* numbers){
 			mergesort(numbers);
 			break;
  	}
- 	printf(SORTING_FINISHED);
 }
