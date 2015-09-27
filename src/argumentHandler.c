@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <unistd.h>
 #include <getopt.h>
@@ -82,7 +83,9 @@ void getFilePath(char *filePath, int argc, char *argv[]){
 }
 
 Sort getSortOption(int argc, char *argv[]){
-	Sort option = getopt(argc, argv, SHORT_ARGUMENTS);
+	char c = getopt(argc, argv, SHORT_ARGUMENTS);
+	if(c == '?') exit(1);
+	Sort option = c;
 	while(option == UNDEFINED){
 		option = askForNewSortOption(stdin);
 	}
@@ -105,6 +108,7 @@ int getTarget(int argc, char *argv[]){
 
 bool benchmarkFlag(int argc, char *argv[], int *argument){
 	int c = getopt_long(argc, argv, SHORT_ARGUMENTS, longOptions, 0);
+	if(c == '?') exit(1);
 	optind=1; //resetting getopt
 	if(c == BENCH_KEY && optarg != NULL)
 		sscanf(optarg, "%d", argument);
@@ -113,6 +117,7 @@ bool benchmarkFlag(int argc, char *argv[], int *argument){
 
 bool helperFlag (int argc, char *argv[]) {
 	int c = getopt_long(argc, argv, SHORT_ARGUMENTS, longOptions, 0);
+	if(c == '?') exit(1);
 	optind=1; //resetting getopt
 	return c == HELP_KEY;
 }
